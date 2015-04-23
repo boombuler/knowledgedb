@@ -1,0 +1,28 @@
+{{define "head"}}
+  <style type="text/css">
+  .highlight {
+    background-color: #5bc0de;
+    color: #fff;
+    padding: 0 .2em 0;
+  }
+  </style>
+{{end}}
+{{define "menu"}}{{end}}
+{{define "body"}}
+    {{range .}}
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title"><a href="/view/{{.Id | urlquery}}"><span class="glyphicon glyphicon-menu-right"></span>{{.Title}}</a></h3>
+          </div>
+          <div class="panel-body">
+            {{range .Texts}}{{.}}{{end}}
+            <div>
+            {{range .Tags}}
+              <a href="/tag/{{. | urlquery}}" class="label label-primary">{{.}}</a>
+            {{end}}
+            </div>
+          </div>
+        </div>
+    {{end}}
+{{end}}
+{{define "script"}}{{end}}

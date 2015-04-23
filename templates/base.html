@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="/hljs/styles/github.css">
+    <script src="/hljs/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <link href="/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="/taginput/bootstrap-tagsinput.css">
+    <link rel="stylesheet" href="/taginput/typeahead.css">
+    <style type="text/css">
+    footer {
+        padding-top: 40px;
+        padding-bottom: 40px;
+        margin-top: 100px;
+        color: #767676;
+        text-align: center;
+        border-top: 1px solid #e5e5e5;
+    }
+    </style>
+    <title>KnowledgeDB</title>
+    {{template "head" .}}
+  </head>
+  <body>
+    <nav class="navbar navbar-inverse navbar-static-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/">KnowledgeDB</a>
+        </div>
+        <ul class="nav navbar-nav">
+           <li><a href="/new">Neuer Eintrag</a></li>
+           {{template "menu" .}}
+        </ul>
+        <form class="navbar-form navbar-right" role="search"  action="/search" method="post">
+          <div class="form-group">
+            <input type="text" name="query" class="form-control" placeholder="Suchen...">
+          </div>
+          <button type="submit" class="btn btn-default">Suchen</button>
+        </form>
+      </div>
+    </nav>
+    <div class="container">
+    {{template "body" .}}
+    </div>
+    <footer class="bs-docs-footer">
+      <div class="container">
+        <small><a href="/help">Hilfe</a></small>
+        |
+        <small><a href="/licenses">Lizenzen</a></small>
+      </div>
+    </footer>
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="/tagcloud.js"></script>
+    <script type="text/javascript" src="/taginput/typeahead.bundle.min.js"></script>
+    <script type="text/javascript" src="/taginput/bootstrap-tagsinput.min.js"></script>
+    <script type="text/javascript" src="/bootstrap/js/bootstrap.js"></script>
+    <script type="text/javascript">{{template "script" .}}</script>
+  </body>
+</html>

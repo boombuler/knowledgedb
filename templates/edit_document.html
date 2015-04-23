@@ -1,0 +1,77 @@
+{{define "head"}}{{end}}
+{{define "menu"}}{{end}}
+{{define "body"}}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Berarbeiten</h3>
+                </div>
+                <div class="panel-body">
+                    <form action="/edit/{{.Id | urlquery}}" method="post">
+                        <div class="form-group">
+                            <label for="inputTitle">Titel</label>
+                            <input type="text" class="form-control" id="inputTitle" placeholder="Titel" name="title" value="{{.Title}}">
+                        </div>
+                        <div class="form-group">
+                            </label><label for="inputBody">Inhalt</label> <small class="pull-right"><a href="http://daringfireball.net/projects/markdown/syntax" target="_blank">Hilfe</a></small>
+                            <textarea class="form-control" id="inputBody" name="body" rows="20" placeholder="Inhalt">{{.Content}}</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputTags">Tags</label>
+                            <select multiple id="inputTags" name="tags" >
+                            {{range .Tags}}
+                               <option value="{{.}}">{{.}}</option>
+                            {{end}}
+                            </select>
+                        </div>
+                        <div class="pull-right">
+                            <input type="submit" name="preview" value="Vorschau" class="btn btn-default"></input>
+                            <input type="submit" name="save" value="Speichern" class="btn btn-primary"></input>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Vorschau</h3>
+                </div>
+                <div class="panel-body">
+                {{.Content | markdown}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{end}}
+{{define "script"}}
+$(function() {
+    var tagnames = new Bloodhound({
+      datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+      queryTokenizer: Bloodhound.tokenizers.whitespace,
+      prefetch: {
+        ttl: 30000,
+        url: '/alltags',
+        filter: function(list) {
+          return $.map(list, function(tag) {
+            return { name: tag.Name }; });
+        }
+      }
+    });
+    tagnames.initialize();
+
+
+    $('#inputTags').tagsinput({
+      trimValue: true,
+      typeaheadjs: {
+        name: 'tagnames',
+        displayKey: 'name',
+        valueKey: 'name',
+        source: tagnames.ttAdapter()
+      }
+    });
+})
+{{end}}

@@ -1,0 +1,24 @@
+{{define "head"}}
+<style type="text/css">
+#tagcloud > a {
+  padding-right: 0.6em;
+}
+</style>
+{{end}}
+{{define "menu"}}{{end}}
+{{define "body"}}
+<div id="tagcloud">
+    {{range .Tags}}
+    <a href="/tag/{{.Name | urlquery}}" rel="{{.Count}}">{{.Name}}</a>
+    {{end}}
+</div>
+{{end}}
+{{define "script"}}
+$(function() {
+    $.fn.tagcloud.defaults = {
+        size: {start: 10, end: 22, unit: 'pt'},
+        color: {start: '#777', end: '#222'}
+    };
+    $('#tagcloud a').tagcloud();
+})
+{{end}}

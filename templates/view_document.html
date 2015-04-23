@@ -1,0 +1,37 @@
+{{define "head"}}{{end}}
+{{define "menu"}}
+<li><a href="/edit/{{.Id | urlquery}}">bearbeiten</a></li>
+<li><a href="#" data-toggle="modal" data-target=".queryDelete">löschen</a></li>
+{{end}}
+{{define "body"}}
+    <h1>{{.Title}}</h1>
+    <p><small>Zuletzt bearbeitet am {{.LastModified | fmtDateTime}}</small></p>
+
+    {{.Content | markdown}}
+    {{range .Tags}}
+    <a href="/tag/{{. | urlquery}}" class="label label-primary">{{.}}</a>
+    {{end}}
+
+    <div class="modal fade queryDelete" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">{{.Title}}</h4>
+      </div>
+      <div class="modal-body">
+        Eintrag wirklich löschen?
+      </div>
+      <div class="modal-footer">
+        <form action="/delete/{{.Id | urlquery}}" method="POST">
+            <input type="submit" class="btn btn-primary" value="Löschen">
+
+            <button type="button" class="btn btn-default" data-dismiss="modal">Abbrechen</button>
+        </form>
+      </div>
+    </div>
+    </div>
+  </div>
+</div>
+{{end}}
+{{define "script"}}{{end}}

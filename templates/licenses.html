@@ -1,0 +1,26 @@
+{{define "head"}}{{end}}
+{{define "menu"}}{{end}}
+{{define "body"}}
+<h2>Übersicht benutzer Third-Party Komponenten und deren Lizenzen</h2>
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  {{range $num, $license := .}}
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="heading{{$num}}">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse{{$num}}" {{if eq 0 $num}}aria-expanded="true"{{end}} aria-controls="collapse{{$num}}">{{$license.Product}}</a>
+      </h4>
+    </div>
+    <div id="collapse{{$num}}" class="panel-collapse collapse {{if eq 0 $num}}in{{end}}" role="tabpanel" aria-labelledby="heading{{$num}}">
+      <div class="panel-body">
+        <pre>{{$license.Text}}</pre>
+      </div>
+    </div>
+  </div>
+  {{end}}
+</div>
+
+{{range .}}
+
+{{end}}
+{{end}}
+{{define "script"}}{{end}}
